@@ -1,0 +1,46 @@
+@theme {
+  --color-bolt-violet: #b154f9;
+  --color-ink-black: #000000;
+  --color-paper-white: #ffffff;
+  --color-mist-gray: #f1f1f1;
+  --color-charcoal: #171717;
+  --color-steel-gray: #6c6b6b;
+  --color-fog-gray: #b3b3b3;
+  --color-expiry-green: #287a3d;
+  --color-expiry-yellow: #8a5a00;
+  --color-expiry-red: #b42318;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-weight-regular: 400;
+
+  --text-caption: 16px;
+  --text-body: 18px;
+  --text-subheading: 24px;
+  --text-heading-sm: 32px;
+  --text-heading: 48px;
+  --text-heading-lg: 64px;
+  --text-display: 80px;
+
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-32: 32px;
+  --spacing-48: 48px;
+  --spacing-96: 96px;
+  --spacing-128: 128px;
+  --spacing-192: 192px;
+  --spacing-240: 240px;
+
+  --radius-lg: 8px;
+  --radius-xl: 14px;
+  --radius-3xl: 30px;
+}
+
+:root {
+  --page-max-width: 1200px;
+  --card-padding: 20px;
+  --element-gap: 8px;
+  --section-gap: 80px;
+}
