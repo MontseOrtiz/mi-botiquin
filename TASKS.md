@@ -46,15 +46,15 @@
 - [x] 28. Configurar `vite-plugin-pwa` y service worker; acceptance: el service worker precachea shell/assets locales sin cachear datos del inventario.
 - [x] 29. Crear manifest e íconos de instalación; acceptance: manifest define nombre Mi botiquín, `display: standalone`, start/scope, colores e íconos válidos.
 - [x] 30. Definir aviso de actualización de la app; acceptance: usuario recibe aviso de nueva versión sin interrumpir un formulario abierto.
-- [ ] 31. Verificar apertura offline tras primera carga online; acceptance: shell abre sin red y las operaciones de inventario siguen funcionando desde IndexedDB.
+- [x] 31. Verificar apertura offline tras primera carga online; acceptance: shell abre sin red y las operaciones de inventario siguen funcionando desde IndexedDB.
 - [x] 32. Manejar primera visita sin recursos cacheados; acceptance: no se muestra una pantalla en blanco y se explica que hace falta abrir la app online una vez.
 
 ## Fase 6 — Polish
 
-- [ ] 33. Ajustar layout y tipografía a mobile 375 px; acceptance: formularios, tarjetas y acciones principales no generan scroll horizontal y el cuerpo no baja de 16 px.
+- [x] 33. Ajustar layout y tipografía a mobile 375 px; acceptance: formularios, tarjetas y acciones principales no generan scroll horizontal y el cuerpo no baja de 16 px.
 - [x] 34. Revisar accesibilidad de formularios, diálogos y acciones; acceptance: controles tienen label/nombre accesible, foco visible, navegación por teclado y confirmación entendible.
 - [x] 35. Verificar consistencia visual con design system; acceptance: paleta, peso 400, espaciado, radios y ausencia de sombras coinciden con tokens; colores de estado solo aparecen en badges.
-- [ ] 36. Hacer revisión de aceptación manual en navegador; acceptance: en un navegador compatible se recorren alta, búsqueda, edición, decremento, eliminación, persistencia tras recarga, modo offline e instalabilidad, registrando resultados y fallas; no se configura runner automatizado por tratarse de un proyecto personal.
+- [x] 36. Hacer revisión de aceptación manual en navegador; acceptance: en un navegador compatible se recorren alta, búsqueda, edición, decremento, eliminación, persistencia tras recarga, modo offline e instalabilidad, registrando resultados y fallas; no se configura runner automatizado por tratarse de un proyecto personal.
 - [x] 37. Revisar límites del producto y el diff final; acceptance: no hay backend, APIs, `localStorage`, features non-goal ni dependencias no aprobadas.
 - [ ] 38. Preparar PR de la rama de implementación; acceptance: PR resume alcance, criterios cubiertos, verificaciones y limitaciones, y no se hace merge hasta aprobación explícita y checks acordados.
 
@@ -71,3 +71,8 @@
 
 - No se agregará una tarea para configurar un runner de pruebas automatizadas.
 - La verificación de offline e instalabilidad será manual en navegador, acorde a que es un proyecto personal.
+
+## Registro de verificación manual — 2026-10-20
+
+- **Tarea 33 — aprobada en 375 × 812 px:** vista principal, formulario de alta y tarjeta con acciones revisados en el deploy. `documentElement.scrollWidth` fue 375 px, igual al viewport; tipografía visible principal: 16 px como mínimo (32 px títulos). El elemento `.sr-only` presenta overflow interno intencional por su técnica de accesibilidad, sin generar scroll horizontal de página.
+- **Tarea 36 — aprobada:** alta, búsqueda por nombre genérico con mayúsculas/acentos, edición, decremento de 2 a 1, persistencia después de recargar, eliminación del registro ficticio `QA temporal` y apertura/operaciones offline completados. La prueba offline fue realizada por el usuario en el deploy tras una primera carga online. En Brave, el deploy muestra el botón **“Install Mi botiquín”**, confirmando que el navegador ofrece la instalación. No se instaló la PWA ni se verificó su lanzamiento en modo standalone.
