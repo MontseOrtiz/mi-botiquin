@@ -3,7 +3,7 @@ import Input from '../../../components/ui/Input.jsx';
 
 export default function SearchInput({ value, onChange }) {
   return (
-    <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+    <div id="busqueda" className="home-search grid w-full min-w-0 gap-2 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
       <Input
         id="medicine-search"
         label="Buscar medicamento"

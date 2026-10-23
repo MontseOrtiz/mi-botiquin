@@ -1,17 +1,40 @@
 @theme {
-  --color-bolt-violet: #b154f9;
-  --color-ink-black: #000000;
-  --color-paper-white: #ffffff;
-  --color-mist-gray: #f1f1f1;
-  --color-charcoal: #171717;
-  --color-steel-gray: #6c6b6b;
-  --color-fog-gray: #b3b3b3;
-  --color-expiry-green: #287a3d;
-  --color-expiry-yellow: #8a5a00;
-  --color-expiry-red: #b42318;
+  --color-brand-burgundy-red: #721010;
+  --color-brand-steel-blue: #8da1b9;
+  --color-brand-pebble-grey: #bcbdb8;
+  --color-brand-sky-blue: #b7cce3;
+  --color-brand-mist-green: #e0e4de;
+  --color-brand-surface: #fdf8f0;
+  --color-brand-canvas: #fdf8f0;
+  --color-brand-surface-muted: #e0e4de;
+  --color-brand-text: #721010;
+  --color-brand-text-muted: #721010;
+  --color-brand-primary: #721010;
+  --color-brand-primary-hover: #580c0c;
+  --color-brand-herb: #8da1b9;
+  --color-brand-herb-hover: #b7cce3;
+  --color-brand-sage-soft: #e0e4de;
+  --color-brand-clay-soft: #bcbdb8;
+  --color-brand-divider: #bcbdb8;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-home-canvas: #fdf8f0;
+  --color-home-ink: #721010;
+  --color-home-accent: #721010;
+
+  --color-expiry-green-bg: #4f6815;
+  --color-expiry-green-fg: #f0e6da;
+  --color-expiry-yellow-bg: #ffedab;
+  --color-expiry-yellow-fg: #75070c;
+  --color-expiry-red-bg: #75070c;
+  --color-expiry-red-fg: #ffedab;
+
+  --font-display: "Iowan Old Style", Baskerville, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --font-chubby: ChubbyRounded, sans-serif;
+  --font-caveat: Caveat, cursive;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
 
   --text-caption: 16px;
   --text-body: 18px;
@@ -19,6 +42,7 @@
   --text-heading-sm: 32px;
   --text-heading: 48px;
   --text-heading-lg: 64px;
+  --text-heading-xl: 56px;
   --text-display: 80px;
 
   --spacing-4: 4px;
@@ -33,14 +57,14 @@
   --spacing-192: 192px;
   --spacing-240: 240px;
 
-  --radius-lg: 8px;
-  --radius-xl: 14px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
   --radius-3xl: 30px;
 }
 
 :root {
-  --page-max-width: 1200px;
-  --card-padding: 20px;
+  --page-max-width: 1248px;
+  --card-padding: 24px;
   --element-gap: 8px;
-  --section-gap: 80px;
+  --section-gap: 96px;
 }
