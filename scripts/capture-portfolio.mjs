@@ -27,8 +27,8 @@ const server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', '--host
   stdio: ['ignore', 'ignore', 'inherit'],
   env: {
     ...process.env,
-    VITE_MEDICINES_CSV_URL: 'https://portfolio.invalid/medicines.csv',
-    VITE_SUPPLIES_CSV_URL: 'https://portfolio.invalid/supplies.csv',
+    MEDICINES_CSV_URL: 'https://portfolio.invalid/medicines.csv',
+    SUPPLIES_CSV_URL: 'https://portfolio.invalid/supplies.csv',
   },
 });
 

@@ -3,8 +3,8 @@ import { medicinesRepository } from '../../db/medicines.repository.js';
 import { parseMedicinesCsv, parseSuppliesCsv } from './inventory-csv.js';
 
 const sources = {
-  medicines: { url: import.meta.env.VITE_MEDICINES_CSV_URL, parse: parseMedicinesCsv },
-  supplies: { url: import.meta.env.VITE_SUPPLIES_CSV_URL, parse: parseSuppliesCsv },
+  medicines: { url: import.meta.env.MEDICINES_CSV_URL, parse: parseMedicinesCsv },
+  supplies: { url: import.meta.env.SUPPLIES_CSV_URL, parse: parseSuppliesCsv },
 };
 
 export async function getSnapshot(source) {

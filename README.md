@@ -34,7 +34,7 @@ PWA personal para consultar desde el celular o la computadora los medicamentos e
    cp .env.example .env.local
    ```
 
-   Las variables `VITE_MEDICINES_CSV_URL` y `VITE_SUPPLIES_CSV_URL` tienen que apuntar a los CSV correctos. No pongas credenciales ni secretos en variables `VITE_*`: Vite las expone al navegador.
+   Las variables `MEDICINES_CSV_URL` y `SUPPLIES_CSV_URL` tienen que apuntar a los CSV correctos. Vite está configurado para exponer al navegador únicamente variables con los prefijos `MEDICINES_` y `SUPPLIES_`; sus valores son públicos, así que no guardes credenciales ni secretos allí.
 
 3. Iniciá el servidor de desarrollo:
 
@@ -74,7 +74,7 @@ Cada fila debe representar un elemento. Si un CSV no se puede leer o validar, la
 
 ## Variables de entorno para deploy
 
-En Vercel, configurá `VITE_MEDICINES_CSV_URL` y `VITE_SUPPLIES_CSV_URL` en los ajustes del proyecto para los entornos que uses. Los valores se incorporan al bundle del navegador durante el deploy; no son secretos. Después de cambiar una URL, volvé a desplegar.
+En Vercel, configurá `MEDICINES_CSV_URL` y `SUPPLIES_CSV_URL` en los ajustes del proyecto para los entornos que uses. Los valores se incorporan al bundle del navegador durante el deploy; no son secretos. Después de cambiar una URL, volvé a desplegar.
 
 El deploy es estático: no se configura servidor propio ni backend de inventario.
 
