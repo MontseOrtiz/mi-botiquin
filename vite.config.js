@@ -3,6 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
+  envPrefix: ['MEDICINES_', 'SUPPLIES_'],
   plugins: [
     tailwindcss(),
     VitePWA({
