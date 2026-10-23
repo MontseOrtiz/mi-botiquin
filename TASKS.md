@@ -53,10 +53,22 @@
 
 - [x] 33. Ajustar layout y tipografía a mobile 375 px; acceptance: formularios, tarjetas y acciones principales no generan scroll horizontal y el cuerpo no baja de 16 px.
 - [x] 34. Revisar accesibilidad de formularios, diálogos y acciones; acceptance: controles tienen label/nombre accesible, foco visible, navegación por teclado y confirmación entendible.
-- [x] 35. Verificar consistencia visual con design system; acceptance: paleta, peso 400, espaciado, radios y ausencia de sombras coinciden con tokens; colores de estado solo aparecen en badges.
+- [x] 35. Verificar consistencia visual con design system; acceptance: paleta, tipografía, espaciado, radios y sombras sutiles coinciden con tokens; colores de estado solo aparecen en badges.
 - [x] 36. Hacer revisión de aceptación manual en navegador; acceptance: en un navegador compatible se recorren alta, búsqueda, edición, decremento, eliminación, persistencia tras recarga, modo offline e instalabilidad, registrando resultados y fallas; no se configura runner automatizado por tratarse de un proyecto personal.
-- [x] 37. Revisar límites del producto y el diff final; acceptance: no hay backend, APIs, `localStorage`, features non-goal ni dependencias no aprobadas.
+- [x] 37. Revisar límites del producto y el diff final; acceptance: no hay backend de inventario, `localStorage`, features non-goal ni dependencias no aprobadas.
 - [ ] 38. Preparar PR de la rama de implementación; acceptance: PR resume alcance, criterios cubiertos, verificaciones y limitaciones, y no se hace merge hasta aprobación explícita y checks acordados.
+
+## Fase 7 — Google Sheets como fuente de lectura
+
+- [x] 39. Añadir Supabase Auth y persistencia local de sesión (alcance luego descartado; eliminado al optar por fuentes públicas de solo lectura).
+- [x] 40. Proteger acciones de inventario con sesión (alcance luego descartado; CRUD en la PWA retirado).
+- [x] 41. Cambiar el modelo de acceso: catálogos públicos y read-only; acceptance: no aparece login ni acciones de escritura en la aplicación.
+- [x] 42. Crear lector CSV nativo y caché de snapshots en Dexie; acceptance: valida fuentes de medicamentos e insumos, respeta la última copia válida y muestra errores de actualización.
+- [ ] 43. Configurar las URLs CSV en Vercel y verificar el refresco online; acceptance: ambas secciones leen las pestañas publicadas, se actualizan al editar la fuente y conservan la última copia offline.
+- [x] 44. Separar cantidad y unidad, y agregar dropdowns en Google Sheets; acceptance: ambas pestañas tienen listas de unidad por categoría y la app muestra cantidades con su tipo (por ejemplo, `2 cajas`).
+- [x] 45. Añadir Playwright para capturas de portafolio; acceptance: un comando genera diez PNGs desktop/mobile con datos demo simulados, sin usar información real de la hoja ni ejecutar build.
+
+> Nota de privacidad: cada CSV publicado puede ser leído por cualquiera con su URL; no incluir datos que deban mantenerse privados.
 
 ## Post-MVP — v0.2
 

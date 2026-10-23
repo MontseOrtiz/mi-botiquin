@@ -8,6 +8,7 @@
  * @property {string} dosis
  * @property {MedicineForm} forma
  * @property {number} cantidad
+ * @property {string=} unidad Unidad de conteo (por ejemplo, cajas o piezas).
  * @property {string} vencimiento Fecha civil YYYY-MM-DD.
  * @property {string=} notas
  * @property {string} createdAt ISO timestamp.

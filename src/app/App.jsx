@@ -1,102 +1,104 @@
 import { useEffect, useMemo, useState } from 'react';
 import Button from '../components/ui/Button.jsx';
 import UpdatePrompt from './UpdatePrompt.jsx';
-import MedicineFormDialog from '../features/medicines/components/MedicineFormDialog.jsx';
 import MedicineList from '../features/medicines/components/MedicineList.jsx';
 import SearchInput from '../features/medicines/components/SearchInput.jsx';
-import { searchMedicines } from '../features/medicines/medicine.utils.js';
-import { useMedicineStore } from '../stores/medicine-store.js';
+import SupplyList from '../features/inventory/components/SupplyList.jsx';
+import { normalizeSearchText, searchMedicines, sortMedicinesByName } from '../features/medicines/medicine.utils.js';
+import { useInventoryStore } from '../stores/inventory-store.js';
+
+const sections = [
+  { id: 'medicines', label: 'Medicamentos' },
+  { id: 'supplies', label: 'Insumos' },
+];
 
 export default function App() {
-  const medicines = useMedicineStore((state) => state.medicines);
-  const query = useMedicineStore((state) => state.query);
-  const status = useMedicineStore((state) => state.status);
-  const error = useMedicineStore((state) => state.error);
-  const hasLoaded = useMedicineStore((state) => state.hasLoaded);
-  const loadMedicines = useMedicineStore((state) => state.loadMedicines);
-  const setQuery = useMedicineStore((state) => state.setQuery);
-  const createMedicine = useMedicineStore((state) => state.createMedicine);
-  const updateMedicine = useMedicineStore((state) => state.updateMedicine);
-  const deleteMedicine = useMedicineStore((state) => state.deleteMedicine);
-  const decrementMedicine = useMedicineStore((state) => state.decrementMedicine);
-  const [formOpen, setFormOpen] = useState(false);
-  const [editingMedicine, setEditingMedicine] = useState(null);
-  const [announcement, setAnnouncement] = useState('');
-  const visibleMedicines = useMemo(() => searchMedicines(medicines, query), [medicines, query]);
+  const [activeSection, setActiveSection] = useState('medicines');
+  const medicines = useInventoryStore((state) => state.medicines);
+  const supplies = useInventoryStore((state) => state.supplies);
+  const query = useInventoryStore((state) => state.query);
+  const setQuery = useInventoryStore((state) => state.setQuery);
+  const errors = useInventoryStore((state) => state.errors);
+  const loadInventory = useInventoryStore((state) => state.loadInventory);
+  const visibleMedicines = useMemo(
+    () => sortMedicinesByName(searchMedicines(medicines, query)),
+    [medicines, query],
+  );
+  const visibleSupplies = useMemo(() => {
+    const normalizedQuery = normalizeSearchText(query);
+    if (!normalizedQuery) return supplies;
+    return supplies.filter((item) => (
+      normalizeSearchText(`${item.nombre} ${item.notas || ''}`).includes(normalizedQuery)
+    ));
+  }, [supplies, query]);
 
-  useEffect(() => { loadMedicines(); }, [loadMedicines]);
+  useEffect(() => { loadInventory(); }, [loadInventory]);
 
-  function openNewMedicine() {
-    setEditingMedicine(null);
-    setFormOpen(true);
-  }
-
-  function openEditMedicine(medicine) {
-    setEditingMedicine(medicine);
-    setFormOpen(true);
-  }
-
-  async function saveMedicine(values) {
-    if (editingMedicine) await updateMedicine(editingMedicine.id, values);
-    else await createMedicine(values);
-    setAnnouncement(editingMedicine ? 'Medicamento actualizado.' : 'Medicamento agregado.');
-  }
-
-  async function confirmDelete(medicine) {
-    if (!window.confirm(`¿Querés eliminar “${medicine.nombre}” del inventario?`)) return;
-    try {
-      await deleteMedicine(medicine.id);
-      setAnnouncement('Medicamento eliminado.');
-    } catch {
-      setAnnouncement('No pudimos eliminar el medicamento.');
-    }
-  }
-
-  async function decrement(medicine) {
-    try {
-      await decrementMedicine(medicine.id);
-      setAnnouncement(`Cantidad actualizada: ${medicine.nombre}.`);
-    } catch {
-      setAnnouncement('No pudimos actualizar la cantidad.');
-    }
+  function switchSection(section) {
+    setActiveSection(section);
+    setQuery('');
   }
 
   return (
     <main className="app-shell">
-      <header className="app-header flex justify-between gap-4">
-        <p className="app-name">Mi botiquín</p>
-        <Button onClick={openNewMedicine}>Agregar medicamento</Button>
-      </header>
-      <section className="inventory grid gap-6" aria-labelledby="inventory-title">
-        <div>
-          <h1 id="inventory-title">Mis medicamentos</h1>
-          <p>Tu inventario personal, disponible sin conexión.</p>
-        </div>
-        <SearchInput value={query} onChange={setQuery} />
-        {status === 'loading' && <p role="status">Cargando inventario…</p>}
-        {error && <p className="text-base text-expiry-red" role="alert">{error}</p>}
-        {status !== 'loading' && hasLoaded && (
-          <MedicineList
-            medicines={visibleMedicines}
-            query={query}
-            onAdd={openNewMedicine}
-            onClearSearch={() => setQuery('')}
-            onEdit={openEditMedicine}
-            onDelete={confirmDelete}
-            onDecrement={decrement}
-            busy={status === 'saving'}
-          />
-        )}
-        <p className="sr-only" role="status" aria-live="polite">{announcement}</p>
+      <section id="inicio" className="home-hero" aria-labelledby="home-title">
+        <header className="app-header">
+          <a className="nav-home-link" href="#inicio">botiquin</a>
+          <nav className="nav-actions" aria-label="Navegación principal">
+            <a className="nav-add-button" href="#contenido">Consultar inventario</a>
+          </nav>
+        </header>
+        <h1 id="home-title" className="home-title">botiquin</h1>
+        <a className="home-cta" href="#contenido">explorar</a>
       </section>
-      <UpdatePrompt hasOpenForm={formOpen} />
-      <MedicineFormDialog
-        open={formOpen}
-        medicine={editingMedicine}
-        onClose={() => setFormOpen(false)}
-        onSave={saveMedicine}
-        busy={status === 'saving'}
-      />
+
+      <section id="contenido" className="inventory-content" aria-label="Inventario doméstico">
+        <nav className="inventory-tabs" aria-label="Secciones del inventario">
+          {sections.map(({ id, label }) => (
+            <Button
+              key={id}
+              variant={activeSection === id ? 'primary' : 'ghost'}
+              aria-pressed={activeSection === id}
+              onClick={() => switchSection(id)}
+            >
+              {label}
+            </Button>
+          ))}
+        </nav>
+
+        {activeSection === 'medicines' ? (
+          <section className="inventory grid gap-6" aria-labelledby="inventory-title">
+            <SearchInput value={query} onChange={setQuery} />
+            <div className="inventory-heading">
+              <div>
+                <span className="eyebrow">Tu colección doméstica</span>
+                <h2 id="inventory-title">Medicamentos</h2>
+              </div>
+              <span className="eyebrow inventory-count">{medicines.length} {medicines.length === 1 ? 'elemento' : 'elementos'}</span>
+            </div>
+            {errors.medicines && <p className="text-base text-brand-primary" role="status">{errors.medicines}</p>}
+            <MedicineList medicines={visibleMedicines} query={query} onClearSearch={() => setQuery('')} />
+          </section>
+        ) : (
+          <section className="inventory grid gap-6" aria-labelledby="supplies-title">
+            <div className="inventory-heading">
+              <div>
+                <span className="eyebrow">Lo que conviene tener a mano</span>
+                <h2 id="supplies-title">Insumos</h2>
+              </div>
+              <span className="eyebrow inventory-count">{supplies.length} {supplies.length === 1 ? 'elemento' : 'elementos'}</span>
+            </div>
+            {errors.supplies && <p className="text-base text-brand-primary" role="status">{errors.supplies}</p>}
+            <SupplyList supplies={visibleSupplies} query={query} />
+          </section>
+        )}
+
+        <footer className="app-footer">
+          <p className="eyebrow">Mi botiquín · Cuidado de todos los días</p>
+        </footer>
+      </section>
+
+      <UpdatePrompt />
     </main>
   );
 }
